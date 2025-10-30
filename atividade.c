@@ -17,6 +17,75 @@ void bubbleSort(int v[], int n) {
     }
 }
 
+void insertionSort(int v[], int n) {
+    int i, j, chave;
+
+    for (i = 1; i < n; i++) {
+        chave = v[i]; 
+        j = i - 1;
+
+        while (j >= 0 && v[j] > chave) {
+            v[j + 1] = v[j];
+            j--;
+        }
+        v[j + 1] = chave;
+    }
+}
+
+void selectionSort(int v[], int n) {
+    int i, j, min, aux;
+
+    for (i = 0; i < n - 1; i++) {
+        min = i;
+        for (j = i + 1; j < n; j++) {
+            if (v[j] < v[min]) min = j;
+        }
+        aux = v[i];
+        v[i] = v[min];
+        v[min] = aux;
+    }
+}
+
+void merge(int v[], int inicio, int meio, int fim) {
+    int i = inicio, j = meio + 1, k = 0;
+    int aux[fim - inicio + 1];
+    
+    while (i <= meio && j <= fim) {
+        if (v[i] <= v[j]) aux[k++] = v[i++];
+        else aux[k++] = v[j++];
+    }
+    while (i <= meio) aux[k++] = v[i++];
+    while (j <= fim) aux[k++] = v[j++];
+    for (i = inicio, k = 0; i <= fim; i++, k++)
+    v[i] = aux[k];
+}
+void mergeSort(int v[], int inicio, int fim) {
+    if (inicio < fim) {
+        int meio = (inicio + fim) / 2;
+        mergeSort(v, inicio, meio);
+        mergeSort(v, meio + 1, fim);
+        merge(v, inicio, meio, fim);
+    }
+}
+
+void quickSort(int v[], int inicio, int fim) {
+    int i = inicio, j = fim, pivo = v[(inicio + fim) / 2], aux;
+
+    while (i <= j) {
+        while (v[i] < pivo) i++;
+        while (v[j] > pivo) j--;
+        if (i <= j) {
+            aux = v[i];
+            v[i] = v[j];
+            v[j] = aux;
+            i++;
+            j--;
+        }
+    }
+    if (inicio < j) quickSort(v, inicio, j);
+    if (i < fim) quickSort(v, i, fim);
+}
+
 int main () {
     int vetorNumero[6], vetorNumeroOrdenado[6], opcao, i = 0;
     char linha[100];
@@ -79,24 +148,32 @@ int main () {
             }
             break;
         case 2:
+            insertionSort(vetorNumeroOrdenado, 6);
+        
             printf("Vetor ordenado (Insertion) ");
             for (int i = 0; i < 6; i++) {
                 printf("%d ", vetorNumeroOrdenado[i]);
             }
             break;
         case 3:
+            selectionSort(vetorNumeroOrdenado, 6);
+            
             printf("Vetor ordenado (Selection) ");
             for (int i = 0; i < 6; i++) {
                 printf("%d ", vetorNumeroOrdenado[i]);
             }
             break;
         case 4:
+            mergeSort(vetorNumeroOrdenado, 0, 5);
+
             printf("Vetor ordenado (Merge) ");
             for (int i = 0; i < 6; i++) {
                 printf("%d ", vetorNumeroOrdenado[i]);
             }
             break;
         case 5:
+            quickSort(vetorNumeroOrdenado, 0, 5);
+
             printf("Vetor ordenado (Quick Sort) ");
             for (int i = 0; i < 6; i++) {
                 printf("%d ", vetorNumeroOrdenado[i]);
@@ -128,7 +205,7 @@ int main () {
         return 1;
     }
     
-    printf("\n\nDeseja alterar o valor do arquivo? (s/n)");
+    printf("\n\nDeseja alterar o valor do arquivo? (s/n): ");
     scanf("%s", &escolhaUsuario);
     
     if (escolhaUsuario == 's' || escolhaUsuario == 'S') {

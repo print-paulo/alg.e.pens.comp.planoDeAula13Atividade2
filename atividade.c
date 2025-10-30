@@ -20,6 +20,7 @@ void bubbleSort(int v[], int n) {
 int main () {
     int vetorNumero[6], opcao;
     char linha[100];
+    char escolhaUsuário[5];
 
     FILE *arquivo = fopen("dados.txt", "w");
     if (arquivo == NULL) {
@@ -115,4 +116,37 @@ int main () {
         fprintf(arquivoOrdenado, "%d\n", vetorNumero[i]);
     }
     fclose(arquivoOrdenado);
+    
+    arquivoOrdenado = fopen("dados.txt", "r");
+    FILE *temp = fopen("temp.txt", "w");
+    if (arquivoOrdenado == NULL || temp == NULL) {
+        printf("Erro ao abrir os arquivos!\n");
+        return 1;
+    }
+    while (fgets(linha, sizeof(linha), arquivoOrdenado) != NULL) {
+        int i = 0;
+        if (strstr(linha, vetorNumero[i]) != NULL) {
+            printf("Deseja alterar o número? (s/n)\n");
+            scanf('%s', &escolhaUsuário);
+            if (escolhaUsuário == 's') {
+                int valorMudar;
+                printf("Digite o número: \n");
+                scanf("%d", &valorMudar);
+                fprintf(temp, "%d\n", valorMudar);
+            }
+            else {
+                fprintf(temp, "%s", linha);
+            }
+        }
+        else {
+            fprintf(temp, "%s", linha);
+        }
+        i++;
+    }
+    fclose(arquivoOrdenado);
+    fclose(temp);
+    remove("ordenado.txt");
+    rename("temp.txt", "ordenado.txt");
+
+    return 0;
 }

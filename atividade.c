@@ -22,7 +22,7 @@ int main () {
 
     FILE *arquivo = fopen("dados.txt", "w");
     if (arquivo == NULL) {
-        printf("Erro ao criar o arquivo.");
+        printf("Erro ao criar o arquivo.\n");
         return 1;
     }
     fclose(arquivo);
@@ -30,7 +30,7 @@ int main () {
     printf("Digite 6 números (de forma desordenada)\n");
     arquivo = fopen("dados.txt", "a");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo.");
+        printf("Erro ao abrir o arquivo.\n");
         return 1;
     }
     for (int i = 0; i < 6; i++) {
@@ -42,7 +42,7 @@ int main () {
 
     arquivo = fopen("dados.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao ler o arquivo.");
+        printf("Erro ao ler o arquivo.\n");
         return 1;
     }
 
@@ -51,7 +51,6 @@ int main () {
     while (fgets(linha, sizeof(linha), arquivo) != NULL) {
         printf("%s", linha);
     }
-    
     fclose(arquivo);
 
     printf("\n-----------TIPO DE ORDENAÇÃO-----------\n");
@@ -72,9 +71,42 @@ int main () {
             for (int i = 0; i < 6; i++) {
                 printf("%d", vetorNumero[i]);
             }
-            return 0;
-
+        case 2:
+            printf("Vetor ordenado (Insertion) ");
+            for (int i = 0; i < 6; i++) {
+                printf("%d", vetorNumero[i]);
+            }
+        case 3:
+            printf("Vetor ordenado (Selection) ");
+            for (int i = 0; i < 6; i++) {
+                printf("%d", vetorNumero[i]);
+            }
+        case 4:
+            printf("Vetor ordenado (Merge) ");
+            for (int i = 0; i < 6; i++) {
+                printf("%d", vetorNumero[i]);
+            }
+        case 5:
+            printf("Vetor ordenado (Quick Sort) ");
+            for (int i = 0; i < 6; i++) {
+                printf("%d", vetorNumero[i]);
+            }
     }
+    
+    FILE *arquivoOrdenado = fopen("ordenado.txt", "w");
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo.\n");
+        return 1;
+    }   
+    fclose(arquivoOrdenado);
 
-    return 0;
+    arquivoOrdenado = fopen("ordenado.txt", "a");
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo.\n");
+        return 1;
+    }
+    for (int i = 0; i < 6; i++) {
+        fprintf(arquivoOrdenado, "%d\n", vetorNumero[i]);
+    }
+    fclose(arquivoOrdenado);
 }

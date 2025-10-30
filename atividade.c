@@ -18,9 +18,9 @@ void bubbleSort(int v[], int n) {
 }
 
 int main () {
-    int vetorNumero[6], opcao;
+    int vetorNumero[6], vetorNumeroOrdenado[6], opcao, i = 0;
     char linha[100];
-    char escolhaUsuário[5];
+    char escolhaUsuario;
 
     FILE *arquivo = fopen("dados.txt", "w");
     if (arquivo == NULL) {
@@ -65,37 +65,41 @@ int main () {
     printf("\nDigite o tipo de ordenação que desejas (1-5): ");
     scanf("%d", &opcao);
 
+    for (int k = 0; k < 6; k++) {
+        vetorNumeroOrdenado[k] = vetorNumero[k];
+    }
+
     switch (opcao) {
         case 1:
-            bubbleSort(vetorNumero, 6);
+            bubbleSort(vetorNumeroOrdenado, 6);
 
             printf("Vetor ordenado (Bubble Sort) ");
             for (int i = 0; i < 6; i++) {
-                printf("%d", vetorNumero[i]);
+                printf("%d ", vetorNumeroOrdenado[i]);
             }
             break;
         case 2:
             printf("Vetor ordenado (Insertion) ");
             for (int i = 0; i < 6; i++) {
-                printf("%d", vetorNumero[i]);
+                printf("%d ", vetorNumeroOrdenado[i]);
             }
             break;
         case 3:
             printf("Vetor ordenado (Selection) ");
             for (int i = 0; i < 6; i++) {
-                printf("%d", vetorNumero[i]);
+                printf("%d ", vetorNumeroOrdenado[i]);
             }
             break;
         case 4:
             printf("Vetor ordenado (Merge) ");
             for (int i = 0; i < 6; i++) {
-                printf("%d", vetorNumero[i]);
+                printf("%d ", vetorNumeroOrdenado[i]);
             }
             break;
         case 5:
             printf("Vetor ordenado (Quick Sort) ");
             for (int i = 0; i < 6; i++) {
-                printf("%d", vetorNumero[i]);
+                printf("%d ", vetorNumeroOrdenado[i]);
             }
             break;
     }
@@ -113,7 +117,7 @@ int main () {
         return 1;
     }
     for (int i = 0; i < 6; i++) {
-        fprintf(arquivoOrdenado, "%d\n", vetorNumero[i]);
+        fprintf(arquivoOrdenado, "%d\n", vetorNumeroOrdenado[i]);
     }
     fclose(arquivoOrdenado);
     
@@ -123,30 +127,35 @@ int main () {
         printf("Erro ao abrir os arquivos!\n");
         return 1;
     }
-    while (fgets(linha, sizeof(linha), arquivoOrdenado) != NULL) {
-        int i = 0;
-        if (strstr(linha, vetorNumero[i]) != NULL) {
-            printf("Deseja alterar o número? (s/n)\n");
-            scanf('%s', &escolhaUsuário);
-            if (escolhaUsuário == 's') {
-                int valorMudar;
-                printf("Digite o número: \n");
-                scanf("%d", &valorMudar);
-                fprintf(temp, "%d\n", valorMudar);
+    
+    printf("\n\nDeseja alterar o valor do arquivo? (s/n)");
+    scanf("%s", &escolhaUsuario);
+    
+    if (escolhaUsuario == 's' || escolhaUsuario == 'S') {
+        while (fgets(linha, sizeof(linha), arquivoOrdenado) != NULL) {
+            if (i < 100) {
+                printf("\n\n%d° Número (valor atual da linha: %d)\n", i + 1, vetorNumeroOrdenado[i]);
+
+                printf("Novo valor: \n");
+                scanf("%d", &vetorNumeroOrdenado[i]);
+                fprintf(temp, "%d\n", vetorNumeroOrdenado[i]);
             }
             else {
                 fprintf(temp, "%s", linha);
             }
+            i++;
         }
-        else {
+    }
+    else {
+        rewind(arquivoOrdenado);
+        while (fgets(linha, sizeof(linha), arquivoOrdenado) != NULL) {
             fprintf(temp, "%s", linha);
         }
-        i++;
     }
     fclose(arquivoOrdenado);
     fclose(temp);
+    
     remove("ordenado.txt");
     rename("temp.txt", "ordenado.txt");
-
     return 0;
 }

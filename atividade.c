@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 void bubbleSort(int v[], int n) {
     int i, j, aux;
@@ -71,26 +72,31 @@ int main () {
             for (int i = 0; i < 6; i++) {
                 printf("%d", vetorNumero[i]);
             }
+            break;
         case 2:
             printf("Vetor ordenado (Insertion) ");
             for (int i = 0; i < 6; i++) {
                 printf("%d", vetorNumero[i]);
             }
+            break;
         case 3:
             printf("Vetor ordenado (Selection) ");
             for (int i = 0; i < 6; i++) {
                 printf("%d", vetorNumero[i]);
             }
+            break;
         case 4:
             printf("Vetor ordenado (Merge) ");
             for (int i = 0; i < 6; i++) {
                 printf("%d", vetorNumero[i]);
             }
+            break;
         case 5:
             printf("Vetor ordenado (Quick Sort) ");
             for (int i = 0; i < 6; i++) {
                 printf("%d", vetorNumero[i]);
             }
+            break;
     }
     
     FILE *arquivoOrdenado = fopen("ordenado.txt", "w");

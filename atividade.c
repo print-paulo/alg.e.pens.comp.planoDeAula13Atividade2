@@ -17,7 +17,7 @@ void bubbleSort(int v[], int n) {
 }
 
 int main () {
-    int numDesordenado, opcao;
+    int vetorNumero[6], opcao;
     char linha[100];
 
     FILE *arquivo = fopen("dados.txt", "w");
@@ -35,8 +35,8 @@ int main () {
     }
     for (int i = 0; i < 6; i++) {
         printf("\n\n%d° Número\n\n", i + 1);
-        scanf("%d", &numDesordenado);
-        fprintf(arquivo, "%d\n", numDesordenado);
+        scanf("%d", &vetorNumero[i]);
+        fprintf(arquivo, "%d\n", vetorNumero[i]);
     }
     fclose(arquivo);
 
@@ -61,8 +61,18 @@ int main () {
     printf("\n4 - Merge");
     printf("\n5 - Quick Sort");
 
+    printf("\nDigite o tipo de ordenação que desejas (1-5): ");
+    scanf("%d", &opcao);
+
     switch (opcao) {
         case 1:
+            bubbleSort(vetorNumero, 6);
+
+            printf("Vetor ordenado (Bubble Sort) ");
+            for (int i = 0; i < 6; i++) {
+                printf("%d", vetorNumero[i]);
+            }
+            return 0;
 
     }
 
